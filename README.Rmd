@@ -17,6 +17,8 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Codecov test coverage](https://codecov.io/gh/srmatth/booksandwriting/branch/master/graph/badge.svg)](https://codecov.io/gh/srmatth/booksandwriting?branch=master)
+[![Travis build status](https://travis-ci.com/srmatth/booksandwriting.svg?branch=master)](https://travis-ci.com/srmatth/booksandwriting)
 <!-- badges: end -->
 
 The goal of booksandwriting is to ...
