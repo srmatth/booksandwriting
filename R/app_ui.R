@@ -2,7 +2,7 @@
 #' 
 #' @param request Internal parameter for `{shiny}`. 
 #'     DO NOT REMOVE.
-#' @import shiny
+#' @import shiny gutenbergr
 #' @noRd
 app_ui <- function(request) {
   tagList(
@@ -10,7 +10,8 @@ app_ui <- function(request) {
     golem_add_external_resources(),
     # Your application UI logic 
     fluidPage(
-      h1("booksandwriting")
+      h1("booksandwriting"),
+      mod_word2vec_ui("word2vec_ui_1")
     )
   )
 }
@@ -20,7 +21,7 @@ app_ui <- function(request) {
 #' This function is internally used to add external 
 #' resources inside the Shiny application. 
 #' 
-#' @import shiny
+#' @import shiny gutenbergr
 #' @importFrom golem add_resource_path activate_js favicon bundle_resources
 #' @noRd
 golem_add_external_resources <- function(){

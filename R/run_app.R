@@ -14,6 +14,8 @@ run_app <- function(
   uiPattern = "/",
   ...
 ) {
+  gutenberg_metadata <<- gutenbergr::gutenberg_metadata
+  gutenberg_languages <<- gutenbergr::gutenberg_languages
   with_golem_options(
     app = shinyApp(
       ui = app_ui,

@@ -6,8 +6,15 @@ Description: Shiny Application for dealing with book text and potential writings
 License: MIT + file LICENSE
 Imports: 
     config (>= 0.3.1),
+    dplyr,
+    ggplot2,
     golem (>= 0.3.1),
-    shiny (>= 1.6.0)
+    gutenbergr,
+    magrittr,
+    shiny (>= 1.6.0),
+    stringr,
+    tidytext,
+    zoo
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
