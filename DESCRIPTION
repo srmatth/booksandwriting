@@ -12,6 +12,8 @@ Imports:
     gutenbergr,
     magrittr,
     shiny (>= 1.6.0),
+    shinyjs,
+    shinyWidgets,
     stringr,
     tidytext,
     zoo

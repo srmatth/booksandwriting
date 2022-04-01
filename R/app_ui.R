@@ -9,9 +9,26 @@ app_ui <- function(request) {
     # Leave this function for adding external resources
     golem_add_external_resources(),
     # Your application UI logic 
-    fluidPage(
-      h1("booksandwriting"),
-      mod_word2vec_ui("word2vec_ui_1")
+    shinydashboard::dashboardPage(
+      shinydashboard::dashboardHeader(
+        title = "Creative Title",
+        titleWidth = 450,
+        tags$li(
+          actionLink(
+            inputId = "return_home",
+            label = "Return to Landing Page",
+            class = "header-btn"
+          ),
+          class = "dropdown"
+        )
+      ),
+      shinydashboard::dashboardSidebar(disable = TRUE),
+      shinydashboard::dashboardBody(
+        mod_landing_ui("landing_ui_1"),
+        mod_text_1_ui("text_1_ui_1")
+        #shinyWidgets::setBackgroundImage(src = "inst/app/www/books_bg.jpg", shinydashboard = TRUE)
+      )
+      #mod_word2vec_ui("word2vec_ui_1")
     )
   )
 }
@@ -35,9 +52,12 @@ golem_add_external_resources <- function(){
     bundle_resources(
       path = app_sys('app/www'),
       app_title = 'booksandwriting'
-    )
+    ),
     # Add here other external resources
     # for example, you can add shinyalert::useShinyalert() 
+    
+    shinyWidgets::useShinydashboard(),
+    shinyjs::useShinyjs()
   )
 }
 

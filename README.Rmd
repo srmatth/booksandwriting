@@ -31,6 +31,10 @@ You can install the released version of booksandwriting from [CRAN](https://CRAN
 install.packages("booksandwriting")
 ```
 
+## Acknowledgments
+
+The background photo in the app was taken by Engin Akyurt and obtained from [the Pexels Website](https://www.pexels.com/photo/assorted-books-on-wooden-shelf-2943603/) on 1 April 2022.
+
 ## Code of Conduct
   
   Please note that the booksandwriting project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.

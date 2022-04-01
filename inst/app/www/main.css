@@ -1,0 +1,89 @@
+ /* Define a custom background */
+.content-wrapper {
+  background-image: url(books_bg.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: inset 0 0 0 1000px rgba(83, 104, 126,.5);
+}
+
+/* Change the color and style of the header bar */
+.skin-blue .main-header .navbar {
+  background-color: rgba(194, 178, 180,1);
+}
+.skin-blue .main-header .logo, .skin-blue .main-header .logo:hover {
+  background-color: rgba(194, 178, 180,1);
+  color: #3A4454;
+  font-weight: 900;
+  font-family: "Copperplate";
+  font-size: 36pt;
+  text-align: left;
+}
+.main-header {
+  border-bottom: 5px solid #3A4454;
+}
+
+/* Edit the existing button object */
+.btn {
+  width: 100%;
+  white-space: normal;
+}
+
+/* Custom Button Classes */
+.tutorial-btn {
+  height: 100px;
+  background-color: #896490;
+  margin-bottom: 30px;
+  color: white;
+  font-size: 20pt;
+  border: none;
+}
+.tutorial-btn:focus, .tutorial-btn:hover, .tutorial-btn:active {
+  background-color: #6B4E71 !important;
+  font-weight: bold !important;
+  color: white !important;
+  border: none;
+}
+.text-btn {
+  height: 100px;
+  background-color: #896490;
+  margin-bottom: 30px;
+  color: white;
+  font-size: 20pt;
+  border: none;
+}
+.text-btn:focus, .text-btn:hover, .text-btn:active {
+  background-color: #6B4E71 !important;
+  font-weight: bold !important;
+  color: white !important;
+  border: none;
+}
+.learn-btn {
+  height: 100px;
+  background-color: #896490;
+  color: white;
+  font-size: 20pt;
+  border: none;
+}
+.learn-btn:focus, .learn-btn:hover, .learn-btn:active {
+  background-color: #6B4E71 !important;
+  font-weight: bold !important;
+  color: white !important;
+  border: none;
+}
+.header-btn {
+  color: #3A4454 !important;
+}
+.header-btn:focus, .header-btn:hover, .header-btn:active {
+  color: #3A4454 !important;
+}
+
+/* Edit the shinydashboard boxes*/
+.box {
+  background-color: rgba(228, 221, 222,1);
+  border: none;
+  box-shadow: 7px 7px rgba(114, 90, 93,.25);
+}
+
+
+
