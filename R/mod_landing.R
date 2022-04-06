@@ -22,6 +22,18 @@ mod_landing_ui <- function(id){
             title = NULL,
             width = 12,
             fluidRow(
+              col_12(
+                p(
+                  "Hello and welcome to the TEXT ANALYSIS TOOL.",
+                  "In this application you are able to use Word2Vec ",
+                  "models to analyze text documents.",
+                  "You can upload your own or explore a preloaded option",
+                  " from project Gutenberg.",
+                  "Enjoy the analysis!"
+                )
+              )
+            ),
+            fluidRow(
               col_6(
                 actionButton(
                   inputId = ns("tutorial"),
@@ -34,16 +46,6 @@ mod_landing_ui <- function(id){
                   inputId = ns("text"),
                   label = "Analyze a Text",
                   class = "text-btn"
-                )
-              )
-            ),
-            fluidRow(
-              col_3(),
-              col_6(
-                actionButton(
-                  inputId = ns("learn"),
-                  label = "Learn about Word2Vec",
-                  class = "learn-btn"
                 )
               )
             )
@@ -71,11 +73,6 @@ mod_landing_server <- function(id){
       ## Hide main tab and show the first text page
       shinyjs::hide("landing_ui_1-main", asis = TRUE)
       shinyjs::show("text_1_ui_1-main", asis = TRUE)
-    })
-    
-    observeEvent(input$learn, {
-      ## Hide main tab and show the tutorial page
-      shinyjs::hide("landing_ui_1-main", asis = TRUE)
     })
     
   })
