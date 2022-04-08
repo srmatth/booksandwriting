@@ -17,12 +17,24 @@ mod_text_upload_ui <- function(id){
         shinydashboard::box(
           width = 6,
           title = NULL,
-          p("This is the upload page"),
+          fluidRow(
+            col_9(
+              p("This is the upload page")
+            ),
+            col_3(
+              actionLink(
+                inputId = ns("back"),
+                label = "Back to Previous Page"
+              )
+            )
+          ),
           fileInput(
             inputId = ns("file"),
-            label = "Drag and drop your text file here or select from your computer.",
+            label = "Drag and drop your text file here",
             multiple = FALSE,
-            accept = c(".pdf", ".doc", ".docx", ".rtf", ".txt")
+            accept = c(".pdf", ".doc", ".docx", ".rtf", ".txt"),
+            placeholder = " ",
+            buttonLabel = "... or Select from Your Computer"
           )
         )
       )
@@ -37,6 +49,12 @@ mod_text_upload_ui <- function(id){
 mod_text_upload_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
+    
+    ## Go back to the previous page
+    observeEvent(input$back, ignoreInit = TRUE, {
+      shinyjs::hide("main")
+      shinyjs::show("mod_text_1_ui_1-main", asis = TRUE)
+    })
  
   })
 }
