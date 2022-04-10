@@ -11,11 +11,15 @@ Imports:
     golem (>= 0.3.1),
     gutenbergr,
     magrittr,
+    rlang,
     shiny (>= 1.6.0),
+    shinydashboard,
     shinyjs,
     shinyWidgets,
     stringr,
+    tidyr,
     tidytext,
+    word2vec,
     zoo
 Encoding: UTF-8
 LazyData: true
