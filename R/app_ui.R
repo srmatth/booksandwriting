@@ -27,7 +27,8 @@ app_ui <- function(request) {
         mod_landing_ui("landing_ui_1"),
         mod_text_1_ui("text_1_ui_1"),
         mod_text_browse_ui("text_browse_ui_1"),
-        mod_text_upload_ui("text_upload_ui_1")
+        mod_text_upload_ui("text_upload_ui_1"),
+        mod_text_analysis_ui("text_analysis_ui_1")
         #shinyWidgets::setBackgroundImage(src = "inst/app/www/books_bg.jpg", shinydashboard = TRUE)
       )
       #mod_word2vec_ui("word2vec_ui_1")

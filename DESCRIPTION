@@ -7,10 +7,12 @@ License: MIT + file LICENSE
 Imports: 
     config (>= 0.3.1),
     dplyr,
+    fs,
     ggplot2,
     golem (>= 0.3.1),
     gutenbergr,
     magrittr,
+    pdftools,
     rlang,
     shiny (>= 1.6.0),
     shinydashboard,
@@ -19,6 +21,7 @@ Imports:
     stringr,
     tidyr,
     tidytext,
+    tm,
     word2vec,
     zoo
 Encoding: UTF-8

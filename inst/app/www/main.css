@@ -99,7 +99,7 @@ div#text_upload_ui_1-main>div.col-sm-6>div.box>div.box-body>div.form-group.shiny
   background-image: url(upload_img.png);
   background-position: center center;
   background-repeat: repeat;
-  box-shadow: inset 0 0 0 1000px rgba(107, 78, 113,.5);
+  box-shadow: inset 0 0 0 1000px rgba(107, 78, 113,.25);
   border: solid 3px #3A4454;
   width: 100%;
 }
@@ -107,15 +107,25 @@ div#text_upload_ui_1-main>div.col-sm-6>div.box>div.box-body>div.form-group.shiny
   height: 300px;
   background-color:transparent;
   border: none;
+  width: 0%;
 }
 div#text_upload_ui_1-main>div.col-sm-6>div.box>div.box-body>div.form-group.shiny-input-container>div.input-group>label.input-group-btn.input-group-prepend {
   vertical-align: bottom;
-  width: 50%;
+  width: 100%;
 }
 div#text_upload_ui_1-main>div.col-sm-6>div.box>div.box-body>div.form-group.shiny-input-container>div.input-group>label.input-group-btn.input-group-prepend>span.btn-file {
-  background-color: transparent;
+  background-color: rgba(228, 219, 230,.9);
   border: none;
   color: #1E8582;
   text-align: left;
+  border-radius: none;
+}
+div#text_upload_ui_1-main>div.col-sm-6>div.box>div.box-body>div.form-group.shiny-input-container>div.input-group>label.input-group-btn.input-group-prepend>span.btn-file:focus, div#text_upload_ui_1-main>div.col-sm-6>div.box>div.box-body>div.form-group.shiny-input-container>div.input-group>label.input-group-btn.input-group-prepend>span.btn-file:hover, div#text_upload_ui_1-main>div.col-sm-6>div.box>div.box-body>div.form-group.shiny-input-container>div.input-group>label.input-group-btn.input-group-prepend>span.btn-file:active {
+  color: #2AB7B2 !important;
+}
+
+.progress-bar {
+  background-color: #53687E;
+  color: rgba(228, 221, 222,1);
 }
 

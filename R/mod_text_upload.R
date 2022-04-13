@@ -35,6 +35,19 @@ mod_text_upload_ui <- function(id){
             accept = c(".pdf", ".doc", ".docx", ".rtf", ".txt"),
             placeholder = " ",
             buttonLabel = "... or Select from Your Computer"
+          ),
+          fluidRow(
+            col_9(
+              uiOutput(outputId = ns("file_name"))
+            ),
+            col_3(
+              shinyjs::hidden(
+                actionLink(
+                  inputId = ns("go"),
+                  label = "Analyze Uploaded Text"
+                )
+              )
+            )
           )
         )
       )
@@ -46,14 +59,54 @@ mod_text_upload_ui <- function(id){
 #' text_upload Server Functions
 #'
 #' @noRd 
-mod_text_upload_server <- function(id){
+mod_text_upload_server <- function(id, rv){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
     ## Go back to the previous page
     observeEvent(input$back, ignoreInit = TRUE, {
       shinyjs::hide("main")
-      shinyjs::show("mod_text_1_ui_1-main", asis = TRUE)
+      shinyjs::show("text_1_ui_1-main", asis = TRUE)
+    })
+    observeEvent(input$go, ignoreInit = TRUE, {
+      shinyjs::hide("main")
+      shinyjs::show("text_analysis_ui_1-main")
+    })
+    observeEvent(input$file, ignoreInit = TRUE, {
+      
+      ## Check the file extension
+      ext <- tolower(fs::path_ext(input$file$name))
+      # print(ext) #FIXME
+      accepted <- c("pdf", "doc", "docx", "rtf", "txt")
+      if (ext %in% accepted) {
+        if (ext == "pdf") {
+          reader <- tm::readPDF(engine = "pdftools")
+          file_text <- reader(elem = list(uri = input$file$datapath), language = "en")
+          # print(file_text$content) #FIXME
+          # print(class(file_text$content)) #FIXME
+        } else if (ext == "doc") {
+          
+        }
+        rv$text_dat <- data.frame(text = file_text$content) %>%
+          tidytext::unnest_tokens(
+            output = "words",
+            input = "text"
+          )
+        shinyjs::show("go")
+      } else {
+        ## Give error message here
+      }
+      
+    })
+    
+    output$file_name <- renderUI({
+      # View(input$file)
+      out_text <- ifelse(is.null(input$file), "None", input$file$name)
+      p(
+        "Uploaded File:",
+        br(),
+        tags$em(out_text)
+      )
     })
  
   })
