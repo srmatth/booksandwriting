@@ -77,24 +77,34 @@ mod_text_upload_server <- function(id, rv){
       ## Check the file extension
       ext <- tolower(fs::path_ext(input$file$name))
       # print(ext) #FIXME
-      accepted <- c("pdf", "doc", "docx", "rtf", "txt")
+      accepted <- c("pdf", "doc", "docx", "rtf", "txt", "ppt", "pptx")
       if (ext %in% accepted) {
-        if (ext == "pdf") {
-          reader <- tm::readPDF(engine = "pdftools")
-          file_text <- reader(elem = list(uri = input$file$datapath), language = "en")
-          # print(file_text$content) #FIXME
-          # print(class(file_text$content)) #FIXME
-        } else if (ext == "doc") {
-          
-        }
-        rv$text_dat <- data.frame(text = file_text$content) %>%
+        # if (ext == "pdf") {
+        #   reader <- tm::readPDF(engine = "pdftools")
+        #   file_text <- reader(elem = list(uri = input$file$datapath), language = "en")
+        #   # print(file_text$content) #FIXME
+        #   # print(class(file_text$content)) #FIXME
+        #   text_raw <- data.frame(text = file_text$content)
+        # } else if (ext == "doc") {
+        #   
+        # }
+        text_raw <- data.frame(text = textreadr::read_document(input$file$datapath))
+        rv$text_dat <- text_raw %>%
           tidytext::unnest_tokens(
             output = "words",
             input = "text"
           )
+        # View(rv$text_dat) #FIXME
         shinyjs::show("go")
       } else {
         ## Give error message here
+        shinyalert::shinyalert(
+          title = "Error: Incorrect File Type",
+          text = "Please ensure that the file you upload is in a text file format: .pdf, .doc, .docx, .rtf, .txt, .ppt, .pptx",
+          type = "error",
+          closeOnEsc = TRUE,
+          closeOnClickOutside = TRUE
+        )
       }
       
     })

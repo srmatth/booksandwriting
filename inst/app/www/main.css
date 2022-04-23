@@ -1,10 +1,14 @@
  /* Define a custom background */
-.content-wrapper {
+.wrapper {
   background-image: url(books_bg.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
   box-shadow: inset 0 0 0 1000px rgba(83, 104, 126,.5);
+  background-attachment: fixed;
+}
+.content-wrapper {
+  background-color: transparent;
 }
 
 /* Change the color and style of the header bar */
@@ -127,5 +131,29 @@ div#text_upload_ui_1-main>div.col-sm-6>div.box>div.box-body>div.form-group.shiny
 .progress-bar {
   background-color: #53687E;
   color: rgba(228, 221, 222,1);
+}
+
+/* changing the shiny alert formatting  */
+
+.sweet-alert.alert-size-s {
+  background-color: rgba(228, 221, 222,1);
+}
+button.confirm {
+  background-color: #5C6B84 !important;
+  color: #E4DDDE !important;
+}
+button.confirm:active, button.confirm:focus, button.confirm:hover {
+  background-color: #3A4454 !important;
+  color: #E4DDDE !important;
+}
+
+/* Altering the paragraph and heading elements */
+h2 {
+  color: #3A4454;
+  font-family: "Helvetica";
+}
+p {
+  color: #3A4454;
+  font-family: "Helvetica";
 }
 
