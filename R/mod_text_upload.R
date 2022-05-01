@@ -70,7 +70,7 @@ mod_text_upload_server <- function(id, rv){
     })
     observeEvent(input$go, ignoreInit = TRUE, {
       shinyjs::hide("main")
-      shinyjs::show("text_analysis_ui_1-main")
+      shinyjs::show("text_analysis_ui_1-main", asis = TRUE)
     })
     observeEvent(input$file, ignoreInit = TRUE, {
       
@@ -88,12 +88,13 @@ mod_text_upload_server <- function(id, rv){
         # } else if (ext == "doc") {
         #   
         # }
-        text_raw <- data.frame(text = textreadr::read_document(input$file$datapath))
-        rv$text_dat <- text_raw %>%
+        rv$text_dat_raw <- data.frame(text = textreadr::read_document(input$file$datapath))
+        rv$text_dat <- rv$text_dat_raw %>%
           tidytext::unnest_tokens(
-            output = "words",
+            output = "word",
             input = "text"
-          )
+          ) %>%
+          dplyr::mutate(word_num = 1:nrow(.))
         # View(rv$text_dat) #FIXME
         shinyjs::show("go")
       } else {

@@ -202,19 +202,21 @@ mod_text_browse_server <- function(id, rv){
       gutenberg_id <- rv$ordered_df %>% 
         dplyr::pull(gutenberg_id) %>% 
         `[`(input$search_results_rows_selected)
-      rv$text_dat <- gutenbergr::gutenberg_download(
+      rv$text_dat_raw <- gutenbergr::gutenberg_download(
         gutenberg_id, 
         mirror = "http://mirrors.xmission.com/gutenberg/"
-      ) %>%
+      ) 
+      rv$text_dat <- rv$text_dat_raw %>%
         tidytext::unnest_tokens(
-          output = "words",
+          output = "word",
           input = "text"
-        )
+        ) %>%
+        dplyr::mutate(word_num = 1:nrow(.))
       shinyjs::hide("main2")
       waiter::waiter_hide(
         id = ns("main_box")
       )
-      shinyjs::show("text_analysis_ui_1-main")
+      shinyjs::show("text_analysis_ui_1-main", asis = TRUE)
     })
     
     output$search_results <- DT::renderDataTable({
