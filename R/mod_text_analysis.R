@@ -183,12 +183,12 @@ mod_text_analysis_server <- function(id, rv){
         raw_text <- raw_text %>%
           purrr::flatten_chr() %>%
           `[`(. != "")
-        print("Length of raw text:")
-        print(length(raw_text))
+        # print("Length of raw text:")
+        # print(length(raw_text))
         end_num <- nrow(rv$text_dat)
         word_num <- s$x
-        print("word number")
-        print(word_num)
+        # print("word number")
+        # print(word_num)
         win_l <- isolate(floor(input$smooth / 2))
         min_indx <- ifelse(word_num - win_l < 1, 1, word_num - win_l)
         max_indx <- ifelse(word_num + win_l > end_num, end_num, word_num + win_l)

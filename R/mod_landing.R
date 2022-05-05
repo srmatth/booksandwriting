@@ -24,27 +24,35 @@ mod_landing_ui <- function(id){
             fluidRow(
               col_12(
                 p(
-                  "Hello and welcome to the TEXT ANALYSIS TOOL.",
-                  "In this application you are able to use Word2Vec ",
-                  "models to analyze text documents.",
-                  "You can upload your own or explore a preloaded option",
-                  " from project Gutenberg.",
-                  "Enjoy the analysis!"
+                  "Hello, and welcome to the Semantic Text Profiling tool.",
+                  style = "font-weight: bold; font-size: 14pt;"
+                ),
+                p(
+                  "This tool computes the semantic similarity of a document to a target concept, ",
+                  "and then plots the resulting semantic similarity profile across the text. ",
+                  style = "font-size: 12pt;"
+                ),
+                p(
+                  "If this is your first time on the app, press the 'Learn More' button to ",
+                  "see further examples and discover the methods behind the output. ",
+                  "Otherwise, get started by clicking 'Profile a Text'!",
+                  style = "font-size: 12pt;"
                 )
               )
             ),
+            br(),
             fluidRow(
               col_6(
                 actionButton(
                   inputId = ns("tutorial"),
-                  label = "See a Tutorial",
+                  label = "Learn More",
                   class = "tutorial-btn"
                 )
               ),
               col_6(
                 actionButton(
                   inputId = ns("text"),
-                  label = "Analyze a Text",
+                  label = "Profile a Text",
                   class = "text-btn"
                 )
               )

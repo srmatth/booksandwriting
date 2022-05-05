@@ -13,18 +13,28 @@ mod_text_upload_ui <- function(id){
     shinyjs::hidden(
       div(
         id = ns("main"),
+        br(),
+        br(),
+        br(),
         col_3(),
         shinydashboard::box(
           width = 6,
           title = NULL,
           fluidRow(
-            col_9(
-              p("This is the upload page")
-            ),
+            col_9(),
             col_3(
               actionLink(
                 inputId = ns("back"),
                 label = "Back to Previous Page"
+              )
+            )
+          ),
+          fluidRow(
+            col_12(
+              p(
+                "Upload your own file on this page by dragging and dropping in the ",
+                "upload box below or by selecting from your local computer. ",
+                "Files must be in .pdf, .doc, .docx, .rft, or .txt format."
               )
             )
           ),

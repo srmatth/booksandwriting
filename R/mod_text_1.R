@@ -13,23 +13,39 @@ mod_text_1_ui <- function(id){
     shinyjs::hidden(
       div(
         id = ns("main"),
+        br(),
+        br(),
+        br(),
         col_3(),
         shinydashboard::box(
           title = NULL,
           width = 6,
-          p("I want to..."),
+          p(
+            "To profile a text, you can either upload your own file by clicking on 'Upload a Document' (must ",
+            "be in .pdf, .doc, .docx, .rft, or .txt format) or you can select ",
+            "a work available on ",
+            tags$a("Project Gutenberg", href = "https://www.gutenberg.org/"),
+            " by clicking on 'Browse Project Gutenberg'."
+          ),
+          p(
+            "Please note that as of now, only texts in the English Language are supported.",
+            "Furthermore, the model used to compute word similarity was trained on modern ",
+            "text. This means that profiling of historical documents may be innaccurate ",
+            "due to changes in semantic word meaning over time."
+          ),
+          br(),
           fluidRow(
             col_6(
               actionButton(
                 inputId = ns("upload"),
-                label = "Upload My Own File",
+                label = "Upload a Document",
                 class = "text-btn"
               )
             ),
             col_6(
               actionButton(
                 inputId = ns("browse"),
-                label = "Browse Built-in Texts",
+                label = "Browse Project Gutenberg",
                 class = "text-btn"
               )
             )

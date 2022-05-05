@@ -11,8 +11,8 @@ app_ui <- function(request) {
     # Your application UI logic 
     shinydashboard::dashboardPage(
       shinydashboard::dashboardHeader(
-        title = "Creative Title",
-        titleWidth = 450,
+        title = "Semantic Text Profiling",
+        titleWidth = 1000,
         tags$li(
           actionLink(
             inputId = "return_home",

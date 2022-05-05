@@ -13,14 +13,15 @@ mod_text_browse_ui <- function(id){
     shinyjs::hidden(
       div(
         id = ns("main"),
+        br(),
+        br(),
+        br(),
         col_3(),
         shinydashboard::box(
           width = 6,
           title = NULL,
           fluidRow(
-            col_9(
-              p("This is the upload page")
-            ),
+            col_9(),
             col_3(
               actionLink(
                 inputId = ns("back"),
@@ -34,8 +35,7 @@ mod_text_browse_ui <- function(id){
                 "Here, you can browse the works available from ",
                 tags$a("Project Gutenberg", href = "https://www.gutenberg.org/"),
                 "to analyze them within the app.",
-                "Use the search function below to perform a matching search, which you",
-                " can perform by title or author."
+                "Use the search bar below to look for a text by title or author."
               )
             )
           ),

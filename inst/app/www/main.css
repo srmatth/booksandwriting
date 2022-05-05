@@ -41,12 +41,14 @@
   color: white;
   font-size: 20pt;
   border: none;
+  font-family: "Copperplate";
 }
 .tutorial-btn:focus, .tutorial-btn:hover, .tutorial-btn:active {
   background-color: #6B4E71 !important;
   font-weight: bold !important;
   color: white !important;
   border: none;
+  font-family: "Copperplate";
 }
 .text-btn {
   height: 100px;
@@ -55,12 +57,14 @@
   color: white;
   font-size: 20pt;
   border: none;
+  font-family: "Copperplate";
 }
 .text-btn:focus, .text-btn:hover, .text-btn:active {
   background-color: #6B4E71 !important;
   font-weight: bold !important;
   color: white !important;
   border: none;
+  font-family: "Copperplate";
 }
 .learn-btn {
   height: 100px;
@@ -68,12 +72,14 @@
   color: white;
   font-size: 20pt;
   border: none;
+  font-family: "Copperplate";
 }
 .learn-btn:focus, .learn-btn:hover, .learn-btn:active {
   background-color: #6B4E71 !important;
   font-weight: bold !important;
   color: white !important;
   border: none;
+  font-family: "Copperplate";
 }
 .header-btn {
   color: #3A4454 !important;
