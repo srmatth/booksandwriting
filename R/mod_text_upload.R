@@ -89,15 +89,6 @@ mod_text_upload_server <- function(id, rv){
       # print(ext) #FIXME
       accepted <- c("pdf", "doc", "docx", "rtf", "txt", "ppt", "pptx")
       if (ext %in% accepted) {
-        # if (ext == "pdf") {
-        #   reader <- tm::readPDF(engine = "pdftools")
-        #   file_text <- reader(elem = list(uri = input$file$datapath), language = "en")
-        #   # print(file_text$content) #FIXME
-        #   # print(class(file_text$content)) #FIXME
-        #   text_raw <- data.frame(text = file_text$content)
-        # } else if (ext == "doc") {
-        #   
-        # }
         rv$text_dat_raw <- data.frame(text = textreadr::read_document(input$file$datapath))
         rv$text_dat <- rv$text_dat_raw %>%
           tidytext::unnest_tokens(
@@ -105,7 +96,7 @@ mod_text_upload_server <- function(id, rv){
             input = "text"
           ) %>%
           dplyr::mutate(word_num = 1:nrow(.))
-        # View(rv$text_dat) #FIXME
+        rv$text_title <- stringr::str_c("<em>Uploaded File:</em> ", input$file$name)
         shinyjs::show("go")
       } else {
         ## Give error message here
@@ -121,7 +112,6 @@ mod_text_upload_server <- function(id, rv){
     })
     
     output$file_name <- renderUI({
-      # View(input$file)
       out_text <- ifelse(is.null(input$file), "None", input$file$name)
       p(
         "Uploaded File:",

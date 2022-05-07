@@ -17,6 +17,18 @@ mod_text_analysis_ui <- function(id){
         shinydashboard::box(
           title = NULL,
           width = 10,
+          fluidRow(
+            col_9(
+              uiOutput(outputId = ns("title"))
+            ),
+            col_3(
+              actionLink(
+                inputId = ns("back"),
+                label = "Select a Different Text"
+              ),
+              style = "text-align: right;"
+            )
+          ),
           sidebarLayout(
             sidebarPanel = sidebarPanel(
               p(
@@ -33,18 +45,19 @@ mod_text_analysis_ui <- function(id){
                 label = "Rolling average over ___ words",
                 value = 200,
                 min = 1,
-                max = 1000
+                max = 10000
               ),
+              br(),
               actionButton(
                 inputId = ns("go"),
-                label = "View Analysis"
+                label = "View Analysis",
+                class = "text-btn"
               )
             ),
             mainPanel = mainPanel(
               div(
                 id = ns("plt_div"),
                 plotly::plotlyOutput(outputId = ns("plt")),
-                #plotOutput(outputId = ns("plt"))
                 htmlOutput(outputId = ns("clicks"))
               )
             )
@@ -98,23 +111,22 @@ mod_text_analysis_server <- function(id, rv){
             fill = NA, 
             align = "center"
           )
-        )
+        ) %>%
+        dplyr::filter(!is.na(roll_similarity))
       
-      #rv$smoother <- loess(roll_similarity ~ word_num, data = rv$joined, span = 0.75)
+      rv$smoother <- FKSUM::fk_regression(
+        y = rv$joined$roll_similarity,
+        x = rv$joined$word_num,
+        type = "NW",
+        h = nrow(rv$joined) / 10
+      )
+      print(rv$smoother$h)
       waiter::waiter_hide(id = ns("plt_div"))
     }) 
     
-    # output$plt <- renderPlot({
-    #   req(rv$joined)
-    #   rv$joined %>%
-    #     ggplot2::ggplot() +
-    #     ggplot2::aes(x = word_num, y = roll_similarity) +
-    #     ggplot2::geom_line(alpha = 0.5) +
-    #     ggplot2::geom_smooth(se = FALSE, color = "#6B4E71", size = 2) +
-    #     ggplot2::theme_classic() +
-    #     ggplot2::xlab("Progression of Story") +
-    #     ggplot2::ylab(stringr::str_c("Similarity to ", snakecase::to_title_case(input$word)))
-    # })
+    output$title <- renderUI({
+      h1(HTML(rv$text_title))
+    })
     output$plt <- plotly::renderPlotly({
       req(rv$joined)
       num_words <- isolate(max(rv$joined$word_num, na.rm = TRUE))
@@ -136,17 +148,16 @@ mod_text_analysis_server <- function(id, rv){
           hoverinfo = "text",
           text = ~word
         ) %>% 
-        # plotly::add_lines(
-        #   x = ~word_num,
-        #   y = predict(rv$smoother),
-        #   line = list(
-        #     color = "#6B4E71",
-        #     width = 4
-        #   ),
-        #   showlegend = FALSE,
-        #   hoverinfo = "text",
-        #   text = ~word
-        # ) %>%
+        plotly::add_lines(
+          x = rv$smoother$x_eval,
+          y = rv$smoother$y_fitted,
+          line = list(
+            color = "#6B4E71",
+            width = 4
+          ),
+          showlegend = FALSE,
+          hoverinfo = "text"
+        ) %>%
         plotly::config(displayModeBar = FALSE) %>%
         plotly::layout(
           #title = "Similarity Over the Text",
@@ -170,43 +181,43 @@ mod_text_analysis_server <- function(id, rv){
       req(rv$joined)
       s <- plotly::event_data("plotly_click")
       if (length(s) == 0) {
-        p("Click on a point on the graph to see the associated text")
+        context <- p("Click on a point on the graph to see the associated text")
       } else {
         raw_text <- stringr::str_split(rv$text_dat_raw$text, " |—|-") 
-        # breaks <- cumsum(
-        #   purrr::map_int(
-        #     raw_text, 
-        #     ~{ifelse(all(.x == ""), 0L, length(.x))}
-        #     )
-        #   ) %>%
-        #   unique()
         raw_text <- raw_text %>%
           purrr::flatten_chr() %>%
           `[`(. != "")
-        # print("Length of raw text:")
-        # print(length(raw_text))
         end_num <- nrow(rv$text_dat)
         word_num <- s$x
-        # print("word number")
-        # print(word_num)
-        win_l <- isolate(floor(input$smooth / 2))
+        
+        win_l <- isolate(min(c(floor(input$smooth / 2), 300)))
         min_indx <- ifelse(word_num - win_l < 1, 1, word_num - win_l)
         max_indx <- ifelse(word_num + win_l > end_num, end_num, word_num + win_l)
-        # sub_breaks <- breaks[breaks > min_indx & breaks < max_indx]
-        # out_words <- c(raw_text[min_indx:max_indx], rep("<br>", length(sub_breaks)))
-        # ids <- c(seq_along(raw_text[min_indx:max_indx]), sub_breaks - min_indx + 0.5) 
-        # 
-        # text_out <- out_words[order(ids)] %>%
-        #   stringr::str_c(collapse = " ") 
-        # # print(text_out)
-        # text_out %>%
-        #   HTML() %>%
-        #   p()
-        # View(cbind(raw_text = raw_text, cleaned_text = c(rv$text_dat$word, rep(NA, length(raw_text) - nrow(rv$text_dat)))))
-        raw_text[min_indx:max_indx] %>%
+        
+        context <- raw_text[min_indx:max_indx] %>%
           stringr::str_c(collapse = " ") %>%
           p()
       }
+      tagList(
+        br(),
+        h1("Context around Selected Point in Text"),
+        context
+      )
+    })
+    
+    observeEvent(input$back, ignoreInit = TRUE, {
+      shinyjs::hide("main")
+      shinyjs::show("text_1_ui_1-main", asis = TRUE)
+    })
+    
+    observeEvent(rv$text_title, ignoreInit = TRUE, {
+      rv$joined <- NULL
+      updateTextInput(
+        inputId = "word",
+        value = "",
+        label = "Find Parts Similar To...",
+        placeholder = "E.g., Love, Battle, Sadness"
+      )
     })
   })
 }

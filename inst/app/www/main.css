@@ -162,4 +162,14 @@ p {
   color: #3A4454;
   font-family: "Helvetica";
 }
+h1 {
+  color: #3A4454;
+  font-family: Copperplate;
+  margin-top: 0;
+  font-size: 30px;
+}
+
+.well {
+  background-color: #faefef;
+}
 

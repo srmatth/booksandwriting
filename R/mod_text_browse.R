@@ -199,6 +199,15 @@ mod_text_browse_server <- function(id, rv){
         color = "#896C70",
         html = waiter::spin_4()
       )
+      rv$text_title <- stringr::str_c(
+        "<em>Selected Text:</em> ",
+        rv$ordered_df %>% 
+        dplyr::pull(title) %>% 
+        `[`(input$search_results_rows_selected), "<br><em>Author:</em> ",
+        rv$ordered_df %>% 
+          dplyr::pull(author) %>% 
+          `[`(input$search_results_rows_selected)
+      )
       gutenberg_id <- rv$ordered_df %>% 
         dplyr::pull(gutenberg_id) %>% 
         `[`(input$search_results_rows_selected)

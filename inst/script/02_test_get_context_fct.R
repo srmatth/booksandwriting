@@ -89,5 +89,14 @@ out_words[order(ids)] %>%
   HTML() %>%
   p()
 
+x <- 1:100
+y <- rnorm(100, mean = 2*x, sd = 50)
+plot(x, y, type = "l")
 
+smoother <- FKSUM::fk_regression(
+  y = y,
+  x = x,
+  type = "NW"
+)
 
+lines(x = smoother$x_eval, y = smoother$y_fitted)

@@ -12,7 +12,7 @@ app_ui <- function(request) {
     shinydashboard::dashboardPage(
       shinydashboard::dashboardHeader(
         title = "Semantic Text Profiling",
-        titleWidth = 1000,
+        titleWidth = 800,
         tags$li(
           actionLink(
             inputId = "return_home",
